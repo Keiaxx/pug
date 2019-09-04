@@ -6,13 +6,48 @@
     <title>Pug</title>
     <style>
         html, body {
-            width:  100%;
+            width: 100%;
             height: 100%;
             margin: 0;
         }
+
         audio {
-            display:none;
+            display: none;
         }
+
+        #footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 20px;
+            overflow: hidden;
+            -webkit-transition: all 0.3s ease-out;
+            -moz-transition: all 0.3s ease-out;
+            -o-transition: all 0.3s ease-out;
+            transition: all 0.3s ease-out;
+            zoom: 1;
+            color: #DDD;
+        }
+
+        #footer a {
+            color: #DDD;
+        }
+
+        #footer:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #fff;
+        }
+
+        #footer:hover a {
+            color: #fff;
+        }
+
+        #footer-left {
+            width: 100px;
+            float: left;
+            padding-left: 20px;
+        }
+
     </style>
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
@@ -23,7 +58,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -40,23 +75,23 @@
 </audio>
 <script>
 
-  function getRandomFloat(min, max) {
-    return Math.random() * (max - min) + min;
+  function getRandomFloat (min, max) {
+    return Math.random() * (max - min) + min
   }
 
   let canvas = document.getElementById('canvas')
   let context = canvas.getContext('2d')
 
-  context.canvas.width  = window.innerWidth;
-  context.canvas.height = window.innerHeight;
+  context.canvas.width = window.innerWidth
+  context.canvas.height = window.innerHeight
 
   let particles = []
   let maxDogs = 20
   let speed = 5
 
   for (let i = 0; i < maxDogs; i++) {
-    let img = new Image();
-    img.src = "amethyst.png";
+    let img = new Image()
+    img.src = 'amethyst.png'
 
     let particle = {
       x: Math.random() * canvas.width,
@@ -64,7 +99,7 @@
       vx: Math.random() * speed,
       vy: Math.random() * speed,
       angle: Math.floor(Math.random() * 360),
-      vangle: Math.random()*0.02,
+      vangle: Math.random() * 0.02,
       scale: getRandomFloat(0.1, 1),
       vscale: 0.005,
       img: img
@@ -74,15 +109,15 @@
 
   // same as above but cx and cy are the location of the point of rotation
   // in image pixel coordinates
-  function drawImageCenter(image, x, y, cx, cy, scale, rotation){
-    context.setTransform(scale, 0, 0, scale, x, y); // sets scale and origin
-    context.rotate(rotation);
-    context.drawImage(image, -cx, -cy);
+  function drawImageCenter (image, x, y, cx, cy, scale, rotation) {
+    context.setTransform(scale, 0, 0, scale, x, y) // sets scale and origin
+    context.rotate(rotation)
+    context.drawImage(image, -cx, -cy)
   }
 
   function drawCanvas () {
-    context.canvas.width  = window.innerWidth;
-    context.canvas.height = window.innerHeight;
+    context.canvas.width = window.innerWidth
+    context.canvas.height = window.innerHeight
     context.clearRect(0, 0, canvas.width, canvas.height)
 
     for (let i = 0; i < maxDogs; i++) {
@@ -91,20 +126,7 @@
       let y = particle.y
       let color = particle.color
 
-      /*
-      Draw Circle
-       */
-      // context.beginPath()
-      // context.arc(x, y, particleRadius, 0, 2 * Math.PI, false)
-      // context.fillStyle = 'white'
-      // context.fill()
-      // context.lineWidth = 1
-      // context.strokeStyle = '#FFFFFF'
-      // context.stroke()
-
-      drawImageCenter(particle.img, x, y, 0, 0, particle.scale, particle.angle);
-
-
+      drawImageCenter(particle.img, x, y, 0, 0, particle.scale, particle.angle)
 
       /*
       Move dog
@@ -119,14 +141,13 @@
        */
       let canvasWidth = context.canvas.width
       let canvasHeight = context.canvas.height
-      if(particle.x > canvasWidth || particle.x < 0)
+      if (particle.x > canvasWidth || particle.x < 0)
         particle.vx = -particle.vx
 
-      if(particle.y > canvasHeight || particle.y < 0)
+      if (particle.y > canvasHeight || particle.y < 0)
         particle.vy = -particle.vy
 
-
-      if(particle.scale > 1 || particle.scale < 0.1)
+      if (particle.scale > 1 || particle.scale < 0.1)
         particle.vscale = -particle.vscale
 
     }
@@ -138,6 +159,13 @@
    */
   drawCanvas()
 </script>
+
+
+<div id="footer">
+    <div id="footer-left">
+        <a href="https://github.com/keiaxx/pug" target="_blank">source code</a>
+    </div>
+</div>
 
 </body>
 </html>
